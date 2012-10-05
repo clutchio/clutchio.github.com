@@ -1,0 +1,346 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
+      <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+          
+          <title>Clutch.io - Integrating Pull-to-Refresh - Documentation</title>
+          
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/main.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-modal.js"></script>
+          <link rel="shortcut icon" href="_static/favicon.ico"/>
+                  <link rel="top" title="Clutch 1.0 documentation" href="index.html" />
+                  <link rel="up" title="Tutorials and Articles" href="tutorials.html" />
+                  <link rel="next" title="Reference" href="reference.html" />
+                  <link rel="prev" title="Adding a New Screen" href="addingnewscreen.html" /> 
+      </head>
+      <body id="docs" class="secondary ">
+          <div id="header">
+                <div class="content">
+                    <div class="ribbon"></div>
+                    <h1 class="logo"><a href="http://127.0.0.1:8000/">Clutch.io</a></h1>
+                        <ul class="main-nav">
+                			<li><a href="http://127.0.0.1:8000/features/"><strong>Features <em>What We Offer</em></strong></a></li>
+                			<li><a href="http://127.0.0.1:8000/pricing/"><strong>Pricing <em>Free &amp; Premium</em></strong></a></li>
+                			<li class="active"><a href="http://docs.clutch.io/"><strong>Documentation <em>Clear and Concise</em></strong></a></li>
+                            <li class="last"><a href="http://127.0.0.1:8000/apps/"><strong>My Account <em>Logout</em></strong></a></li>	
+                		</ul>
+                </div>
+           </div>
+           <div class="edge"></div>
+            
+              <div class="document">
+                  <div class="documentwrapper section-wrap">
+                      
+                    <div class="relbar">
+                    
+    <div class="breadcrumbs">
+    <a href="index.html" class="main-link">Clutch 1.0 documentation</a> &raquo;
+      <a href="framework.html" >Clutch Framework</a> &raquo;
+      <a href="tutorials.html" accesskey="U">Tutorials and Articles</a> &raquo;
+    Integrating Pull-to-Refresh
+    </div>
+    <div class="rellinks">
+    <a href="index.html" class="left">home</a>
+    <a href="genindex.html" class="right" title="General Index" accesskey="I">index</a>
+    <a href="reference.html" class="right" title="Reference" accesskey="N">next</a>
+    <a href="addingnewscreen.html" class="right" title="Adding a New Screen" accesskey="P">previous</a>
+    </div> 
+    <div class="clear"></div>
+                    </div>  
+                      
+                    <div class="bodywrapper content">  
+                      <div class="body main-sec">
+                        
+  <div class="section" id="integrating-pull-to-refresh">
+<h1>Integrating Pull-to-Refresh<a class="headerlink" href="#integrating-pull-to-refresh" title="Permalink to this headline">¶</a></h1>
+<p>One common UI element that people like to have in their apps is
+pull-to-refresh.  By using some open source software along with a little bit
+of integration with Clutch, you can add this UI element to your Clutch screens
+quite easily!</p>
+<div class="section" id="download-and-install-egotableviewpullrefresh">
+<h2>Download and Install EGOTableViewPullRefresh<a class="headerlink" href="#download-and-install-egotableviewpullrefresh" title="Permalink to this headline">¶</a></h2>
+<p>For the purposes of this tutorial, we&#8217;re going to use the open source
+<a class="reference external" href="https://github.com/enormego/EGOTableViewPullRefresh">EGOTableViewPullRefresh</a> project, by the talented team at <a class="reference external" href="http://enormego.com/">enormego.com</a>.
+First you need to clone the repository:</p>
+<div class="highlight-python"><pre>git clone https://github.com/enormego/EGOTableViewPullRefresh.git</pre>
+</div>
+<p>Then open the directory:</p>
+<div class="highlight-python"><pre>open EGOTableViewPullRefresh</pre>
+</div>
+<p>Now drag the EGOTableViewPullRefresh folder into your XCode project.</p>
+</div>
+<div class="section" id="integrate-egotableviewpullrefresh-in-your-header-file">
+<h2>Integrate EGOTableViewPullRefresh in Your Header File<a class="headerlink" href="#integrate-egotableviewpullrefresh-in-your-header-file" title="Permalink to this headline">¶</a></h2>
+<p>In your ViewController&#8217;s header file, import the pull-to-refresh library
+headers so that we have something to work with:</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="cp">#import &quot;EGORefreshTableHeaderView.h&quot;</span>
+</pre></div>
+</div>
+<p>Then add make sure your Clutch ViewController is a scroll view delegate, and a
+<tt class="docutils literal"><span class="pre">EGORefreshTableHeaderDelegate</span></tt>:</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">@interface</span> <span class="nc">ImageTableController</span> : <span class="nc">UIViewController</span> <span class="o">&lt;</span><span class="n">ClutchViewDelegate</span><span class="p">,</span> <span class="n">UIScrollViewDelegate</span><span class="p">,</span> <span class="n">EGORefreshTableHeaderDelegate</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Now add three properties:</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">retain</span><span class="p">)</span> <span class="n">EGORefreshTableHeaderView</span> <span class="o">*</span><span class="n">refreshHeaderView</span><span class="p">;</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">retain</span><span class="p">)</span> <span class="n">NSDate</span> <span class="o">*</span><span class="n">dateLastUpdated</span><span class="p">;</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">assign</span><span class="p">)</span> <span class="kt">BOOL</span> <span class="n">reloading</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="synthesize-and-instantiate-refresh-variables">
+<h2>Synthesize and Instantiate Refresh Variables<a class="headerlink" href="#synthesize-and-instantiate-refresh-variables" title="Permalink to this headline">¶</a></h2>
+<p>First, synthesize the new variables that you have added:</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">@synthesize</span> <span class="n">refreshHeaderView</span> <span class="o">=</span> <span class="n">_refreshHeaderView</span><span class="p">;</span>
+<span class="k">@synthesize</span> <span class="n">dateLastUpdated</span> <span class="o">=</span> <span class="n">_dateLastUpdated</span><span class="p">;</span>
+<span class="k">@synthesize</span> <span class="n">reloading</span> <span class="o">=</span> <span class="n">_reloading</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Now instantiate the view and set the last updated date in your <tt class="docutils literal"><span class="pre">loadView</span></tt>,
+and set this class as both the delegate and the scroll delegate for Clutch:</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">loadView</span>
+<span class="p">{</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="n">self</span><span class="p">.</span><span class="n">dateLastUpdated</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDate</span> <span class="n">date</span><span class="p">];</span>
+
+    <span class="c1">// Initialize the pull-to-refresh implementation</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">refreshHeaderView</span> <span class="o">=</span> <span class="p">[[</span><span class="n">EGORefreshTableHeaderView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">324</span><span class="p">,</span> <span class="mi">320</span><span class="p">,</span> <span class="mi">368</span><span class="p">)];</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">refreshHeaderView</span> <span class="n">release</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">addSubview:</span><span class="n">self</span><span class="p">.</span><span class="n">refreshHeaderView</span><span class="p">];</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">refreshHeaderView</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">refreshHeaderView</span> <span class="n">refreshLastUpdatedDate</span><span class="p">];</span>
+
+    <span class="c1">// Set up the Clutch view</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">clutchView</span> <span class="o">=</span> <span class="p">[[</span><span class="n">ClutchView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">320</span><span class="p">,</span> <span class="mi">411</span><span class="p">)</span>
+                                                <span class="nl">andSlug:</span><span class="s">@&quot;SOMESLUG&quot;</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">clutchView</span> <span class="n">release</span><span class="p">];</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">clutchView</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">clutchView</span><span class="p">.</span><span class="n">scrollDelegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">addSubview:</span><span class="n">self</span><span class="p">.</span><span class="n">clutchView</span><span class="p">];</span>
+
+    <span class="c1">// ...</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-delegate-methods">
+<h2>Add Delegate Methods<a class="headerlink" href="#add-delegate-methods" title="Permalink to this headline">¶</a></h2>
+<p>We&#8217;re almost there!  Everything is set up, except there are a bunch of delegate
+methods that are being called and we haven&#8217;t yet implemented them yet.  First
+up is the <tt class="docutils literal"><span class="pre">EGORefreshTableHeaderView</span></tt> delegate methods:</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">egoRefreshTableHeaderDidTriggerRefresh:</span><span class="p">(</span><span class="n">EGORefreshTableHeaderView</span> <span class="o">*</span><span class="p">)</span><span class="nv">view</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">clutchView</span><span class="p">.</span><span class="n">webView</span> <span class="n">reload</span><span class="p">];</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">reloading</span> <span class="o">=</span> <span class="nb">TRUE</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">egoRefreshTableHeaderDataSourceIsLoading:</span><span class="p">(</span><span class="n">EGORefreshTableHeaderView</span> <span class="o">*</span><span class="p">)</span><span class="nv">view</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">reloading</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">NSDate</span><span class="o">*</span><span class="p">)</span><span class="nf">egoRefreshTableHeaderDataSourceLastUpdated:</span><span class="p">(</span><span class="n">EGORefreshTableHeaderView</span> <span class="o">*</span><span class="p">)</span><span class="nv">view</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">dateLastUpdated</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">doneLoadingTableViewData</span>
+<span class="p">{</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">reloading</span> <span class="o">=</span> <span class="nb">FALSE</span><span class="p">;</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">dateLastUpdated</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDate</span> <span class="n">date</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">refreshHeaderView</span> <span class="nl">egoRefreshScrollViewDataSourceDidFinishedLoading:</span><span class="n">self</span><span class="p">.</span><span class="n">clutchView</span><span class="p">.</span><span class="n">scrollView</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You may not want to just call <tt class="docutils literal"><span class="pre">[self.clutchView.webView</span> <span class="pre">reload]</span></tt>.  You
+could also call a method in the JavaScript to refresh the data, or get the
+data using Objective-C code.  This is the easiest and simplest way to
+achieve a reload though.</p>
+</div>
+<p>Now we need to implement one of the <tt class="docutils literal"><span class="pre">ScrollViewDelegate</span></tt> delegate methods:</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">scrollViewDidScroll:</span><span class="p">(</span><span class="n">UIScrollView</span> <span class="o">*</span><span class="p">)</span><span class="nv">scrollView</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">refreshHeaderView</span> <span class="nl">egoRefreshScrollViewDidScroll:</span><span class="n">scrollView</span><span class="p">];</span>
+
+    <span class="c1">// This slides the pull-to-refresh view into the proper location</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">refreshHeaderView</span><span class="p">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">refreshHeaderView</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">origin</span><span class="p">.</span><span class="n">x</span><span class="p">,</span>
+                                              <span class="o">-</span><span class="mf">324.0f</span> <span class="o">-</span> <span class="n">scrollView</span><span class="p">.</span><span class="n">contentOffset</span><span class="p">.</span><span class="n">y</span><span class="p">,</span>
+                                              <span class="n">self</span><span class="p">.</span><span class="n">refreshHeaderView</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">,</span>
+                                              <span class="n">self</span><span class="p">.</span><span class="n">refreshHeaderView</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pulling-it-all-together">
+<h2>Pulling it All Together<a class="headerlink" href="#pulling-it-all-together" title="Permalink to this headline">¶</a></h2>
+<p>We have one last step before this will all work properly.  Right now you have
+a Clutch view that, when dragged, will reveal a pull-to-refresh panel.  When
+you drag it down, it will reload the page.  But it won&#8217;t yet know when it&#8217;s
+done refreshing.  That&#8217;s a bummer, so let&#8217;s fix it:</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">clutchView:</span><span class="p">(</span><span class="n">ClutchView</span> <span class="o">*</span><span class="p">)</span><span class="nv">clutchView</span>
+      <span class="nf">methodCalled:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">method</span>
+        <span class="nf">withParams:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">params</span>
+          <span class="nf">callback:</span><span class="p">(</span><span class="kt">void</span><span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="kt">id</span><span class="p">))</span><span class="nv">callback</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+
+    <span class="k">if</span><span class="p">([</span><span class="n">method</span> <span class="nl">isEqualToString:</span><span class="s">@&quot;clutch.loading.end&quot;</span><span class="p">])</span> <span class="p">{</span>
+        <span class="p">[</span><span class="n">self</span> <span class="n">doneLoadingTableViewData</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>As you can see, we&#8217;re hooking into the <tt class="docutils literal"><span class="pre">clutch.loading.end</span></tt> method call
+to determine when loading is complete.  Now all that&#8217;s left to do is call that
+method in our JavaScript code:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">Clutch</span><span class="p">.</span><span class="nx">Core</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Do your loading here, and then call...</span>
+    <span class="nx">Clutch</span><span class="p">.</span><span class="nx">Loading</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>Boom!  Now we&#8217;re done integrating a pull-to-refresh into our Clutch screen.
+Thanks to the power of great open source code and a bit of integration, it&#8217;s
+quite easy to get this great effect in your app.</p>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>We&#8217;ve built an example application called Imgs which uses this technique, so
+you can <a class="reference external" href="https://github.com/boilerplate/imgs">check out the code</a> and see how we did it in a real app.</p>
+</div>
+</div>
+
+
+                      </div>
+                        
+      <div class="sphinxsidebar secondary-sec">
+        <div class="sphinxsidebarwrapper">
+  <h3 class="contents">Contents</h3>
+  <div class="pad">
+  <ul>
+<li><a class="reference internal" href="#">Integrating Pull-to-Refresh</a><ul>
+<li><a class="reference internal" href="#download-and-install-egotableviewpullrefresh">Download and Install EGOTableViewPullRefresh</a></li>
+<li><a class="reference internal" href="#integrate-egotableviewpullrefresh-in-your-header-file">Integrate EGOTableViewPullRefresh in Your Header File</a></li>
+<li><a class="reference internal" href="#synthesize-and-instantiate-refresh-variables">Synthesize and Instantiate Refresh Variables</a></li>
+<li><a class="reference internal" href="#add-delegate-methods">Add Delegate Methods</a></li>
+<li><a class="reference internal" href="#pulling-it-all-together">Pulling it All Together</a></li>
+<li><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless pad">
+      <a href="addingnewscreen.html" title="previous chapter">Adding a New Screen</a>
+  </p>
+  <h4>Next topic</h4>
+  <p class="topless pad">
+      <a href="reference.html" title="next chapter">Reference</a>
+  </p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu pad">
+    <li>
+        <a href="_sources/pulltorefresh.txt" rel="nofollow">Show Source</a>
+    </li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <div class="pad">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" class="btn gray small" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip">
+    Enter search terms or a module, class or function name.
+    </p>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+                      <div class="clear"></div>
+                    </div>
+                    
+                  </div>
+                </div>
+      <div id="footer">
+             <div class="content">
+                 <div class="left">
+                 		<ul>
+                 		    <li><a href="http://127.0.0.1:8000/">Home</a></li>
+                 	        <li><a href="http://127.0.0.1:8000/about/">About</a></li>
+                 	        <li><a href="http://127.0.0.1:8000/faq/">FAQ</a></li>
+                 	        <li><a href="http://127.0.0.1:8000/privacy/">Privacy</a></li>
+                 	        <li><a href="http://127.0.0.1:8000/terms/">Terms</a></li>
+                          <li><a href="http://docs.clutch.io/">Documentation</a></li>
+                 	        <li class="#"><a href="http://blog.clutch.io">Blog</a></li>
+                 	    </ul>	
+                 		<br class="cl">
+
+                 		<a href="https://twitter.com/clutchio" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false">Follow @clutchio</a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                 	</div>
+
+                 	<div class="right">	
+                 		<p class="copyright">Copyright &copy; 2011-2012 Boilerplate Inc. San Francisco, CA.
+                 		    <br />
+                              Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.    
+                 		</p>
+                 	</div>
+             </div>
+        </div>
+    
+    
+    
+    
+    <!-- begin olark code --><script type='text/javascript'>/*{literal}<![CDATA[*/window.olark||(function(i){var e=window,h=document,a=e.location.protocol=="https:"?"https:":"http:",g=i.name,b="load";(function(){e[g]=function(){(c.s=c.s||[]).push(arguments)};var c=e[g]._={},f=i.methods.length; while(f--){(function(j){e[g][j]=function(){e[g]("call",j,arguments)}})(i.methods[f])} c.l=i.loader;c.i=arguments.callee;c.f=setTimeout(function(){if(c.f){(new Image).src=a+"//"+c.l.replace(".js",".png")+"&"+escape(e.location.href)}c.f=null},20000);c.p={0:+new Date};c.P=function(j){c.p[j]=new Date-c.p[0]};function d(){c.P(b);e[g](b)}e.addEventListener?e.addEventListener(b,d,false):e.attachEvent("on"+b,d); (function(){function l(j){j="head";return["<",j,"></",j,"><",z,' onl'+'oad="var d=',B,";d.getElementsByTagName('head')[0].",y,"(d.",A,"('script')).",u,"='",a,"//",c.l,"'",'"',"></",z,">"].join("")}var z="body",s=h[z];if(!s){return setTimeout(arguments.callee,100)}c.P(1);var y="appendChild",A="createElement",u="src",r=h[A]("div"),G=r[y](h[A](g)),D=h[A]("iframe"),B="document",C="domain",q;r.style.display="none";s.insertBefore(r,s.firstChild).id=g;D.frameBorder="0";D.id=g+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){D.src="javascript:false"} D.allowTransparency="true";G[y](D);try{D.contentWindow[B].open()}catch(F){i[C]=h[C];q="javascript:var d="+B+".open();d.domain='"+h.domain+"';";D[u]=q+"void(0);"}try{var H=D.contentWindow[B];H.write(l());H.close()}catch(E){D[u]=q+'d.write("'+l().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}c.P(2)})()})()})({loader:(function(a){return "static.olark.com/jsclient/loader0.js?ts="+(a?a[1]:(+new Date))})(document.cookie.match(/olarkld=([0-9]+)/)),name:"olark",methods:["configure","extend","declare","identify"]});
+    /* custom configuration goes here (www.olark.com/documentation) */
+    olark.configure('system.domain', '.clutch.io');
+    olark.identify('8940-141-10-1241');/*]]>{/literal}*/</script>
+        
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-29049023-2']);
+      _gaq.push(['_setDomainName', 'clutch.io']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

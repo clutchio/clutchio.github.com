@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
+      <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+          
+          <title>Clutch.io - Adding a New Screen - Documentation</title>
+          
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/main.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-modal.js"></script>
+          <link rel="shortcut icon" href="_static/favicon.ico"/>
+                  <link rel="top" title="Clutch 1.0 documentation" href="index.html" />
+                  <link rel="up" title="Tutorials and Articles" href="tutorials.html" />
+                  <link rel="next" title="Integrating Pull-to-Refresh" href="pulltorefresh.html" />
+                  <link rel="prev" title="Anatomy of an App Using Clutch" href="anatomy.html" /> 
+      </head>
+      <body id="docs" class="secondary ">
+          <div id="header">
+                <div class="content">
+                    <div class="ribbon"></div>
+                    <h1 class="logo"><a href="http://127.0.0.1:8000/">Clutch.io</a></h1>
+                        <ul class="main-nav">
+                			<li><a href="http://127.0.0.1:8000/features/"><strong>Features <em>What We Offer</em></strong></a></li>
+                			<li><a href="http://127.0.0.1:8000/pricing/"><strong>Pricing <em>Free &amp; Premium</em></strong></a></li>
+                			<li class="active"><a href="http://docs.clutch.io/"><strong>Documentation <em>Clear and Concise</em></strong></a></li>
+                            <li class="last"><a href="http://127.0.0.1:8000/apps/"><strong>My Account <em>Logout</em></strong></a></li>	
+                		</ul>
+                </div>
+           </div>
+           <div class="edge"></div>
+            
+              <div class="document">
+                  <div class="documentwrapper section-wrap">
+                      
+                    <div class="relbar">
+                    
+    <div class="breadcrumbs">
+    <a href="index.html" class="main-link">Clutch 1.0 documentation</a> &raquo;
+      <a href="framework.html" >Clutch Framework</a> &raquo;
+      <a href="tutorials.html" accesskey="U">Tutorials and Articles</a> &raquo;
+    Adding a New Screen
+    </div>
+    <div class="rellinks">
+    <a href="index.html" class="left">home</a>
+    <a href="genindex.html" class="right" title="General Index" accesskey="I">index</a>
+    <a href="pulltorefresh.html" class="right" title="Integrating Pull-to-Refresh" accesskey="N">next</a>
+    <a href="anatomy.html" class="right" title="Anatomy of an App Using Clutch" accesskey="P">previous</a>
+    </div> 
+    <div class="clear"></div>
+                    </div>  
+                      
+                    <div class="bodywrapper content">  
+                      <div class="body main-sec">
+                        
+  <div class="section" id="adding-a-new-screen">
+<h1>Adding a New Screen<a class="headerlink" href="#adding-a-new-screen" title="Permalink to this headline">¶</a></h1>
+<p>Once you have your app all set up and configured, the most common task you will
+want to do is add a new screen.  Fortunately, this is quite easy!</p>
+<p>First, come up with a short name that you would like to identify this new
+screen, which we refer to as the &#8220;slug&#8221;, and the Objective-C class name.  For
+example if you are creating a screen to present a photo to the user, you might
+choose <tt class="docutils literal"><span class="pre">photo</span></tt> as your slug, and you might want to choose something like
+<tt class="docutils literal"><span class="pre">PhotoViewController</span></tt> for your new file in XCode.</p>
+<p>To help make this easier, we&#8217;ve created a tool to help get the details right.
+All you have to do is enter your choices below:</p>
+<label for="slug">Slug:</label>
+<input type="text" id="id_slug" name="slug" value="photo" />
+<br />
+<div class="clear"></div>
+<label for="name">Controller Name:</label>
+<input type="text" id="id_name" name="name" value="PhotoViewController" />
+<div class="clear"></div>
+<br /><p>Now you should type this command into
+Terminal.app (make sure you change to the directory holding your Clutch
+JavaScript first):</p>
+<div class="highlight-python"><pre>clutch startscreen $SLUG$</pre>
+</div>
+<p>Now you should go to your XCode project and add a new file.  Choose
+&#8220;UIViewController subclass&#8221; when it asks.  Name it what you decided above, and
+then copy this into $NAME$.h:</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="cp">#import &lt;UIKit/UIKit.h&gt;</span>
+<span class="cp">#import &lt;Clutch/Clutch.h&gt;</span>
+
+<span class="k">@interface</span> <span class="nc">$NAME$</span> : <span class="nc">UIViewController</span> <span class="o">&lt;</span><span class="n">ClutchViewDelegate</span><span class="o">&gt;</span>
+
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">retain</span><span class="p">)</span> <span class="n">ClutchView</span> <span class="o">*</span><span class="n">clutchView</span><span class="p">;</span>
+
+<span class="k">@end</span>
+</pre></div>
+</div>
+<p>Now copy this into $NAME$.m:</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="cp">#import &quot;$NAME$.h&quot;</span>
+
+<span class="k">@implementation</span> <span class="nc">$NAME$</span>
+
+<span class="k">@synthesize</span> <span class="n">clutchView</span> <span class="o">=</span> <span class="n">_clutchView</span><span class="p">;</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">didReceiveMemoryWarning</span>
+<span class="p">{</span>
+    <span class="c1">// Releases the view if it doesn&#39;t have a superview.</span>
+    <span class="p">[</span><span class="n">super</span> <span class="n">didReceiveMemoryWarning</span><span class="p">];</span>
+
+    <span class="c1">// Release any cached data, images, etc that aren&#39;t in use.</span>
+<span class="p">}</span>
+
+<span class="cp">#pragma mark - ClutchViewDelegate</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">clutchView:</span><span class="p">(</span><span class="n">ClutchView</span> <span class="o">*</span><span class="p">)</span><span class="nv">clutchView</span>
+      <span class="nf">methodCalled:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">method</span>
+        <span class="nf">withParams:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">params</span>
+          <span class="nf">callback:</span><span class="p">(</span><span class="kt">void</span><span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="kt">id</span><span class="p">))</span><span class="nv">callback</span> <span class="p">{</span>
+    <span class="c1">// Handle any events coming from the JavaScript of your Clutch view here</span>
+    <span class="k">if</span><span class="p">([</span><span class="n">method</span> <span class="nl">isEqualToString:</span><span class="s">@&quot;tapped&quot;</span><span class="p">])</span> <span class="p">{</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Tapped: %@</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">params</span> <span class="nl">objectForKey:</span><span class="s">@&quot;value&quot;</span><span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cp">#pragma mark - View lifecycle</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">loadView</span>
+<span class="p">{</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="o">=</span> <span class="p">[[[</span><span class="n">UIView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame:</span><span class="p">[[</span><span class="n">UIScreen</span> <span class="n">mainScreen</span><span class="p">]</span> <span class="n">bounds</span><span class="p">]]</span> <span class="n">autorelease</span><span class="p">];</span>
+
+    <span class="n">self</span><span class="p">.</span><span class="n">clutchView</span> <span class="o">=</span> <span class="p">[[</span><span class="n">ClutchView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">320</span><span class="p">,</span> <span class="mi">367</span><span class="p">)</span>
+                                                <span class="nl">andSlug:</span><span class="s">@&quot;$SLUG$&quot;</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">clutchView</span> <span class="n">release</span><span class="p">];</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">clutchView</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">addSubview:</span><span class="n">self</span><span class="p">.</span><span class="n">clutchView</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="cm">/*</span>
+<span class="cm">// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.</span>
+<span class="cm">- (void)viewDidLoad</span>
+<span class="cm">{</span>
+<span class="cm">    [super viewDidLoad];</span>
+<span class="cm">}</span>
+<span class="cm">*/</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidUnload</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="n">super</span> <span class="n">viewDidUnload</span><span class="p">];</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">clutchView</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidAppear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="n">super</span> <span class="nl">viewDidAppear:</span><span class="n">animated</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">clutchView</span> <span class="nl">viewDidAppear:</span><span class="n">animated</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidDisappear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">super</span> <span class="nl">viewDidDisappear:</span><span class="n">animated</span><span class="p">];</span>
+    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">clutchView</span> <span class="nl">viewDidDisappear:</span><span class="n">animated</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">shouldAutorotateToInterfaceOrientation:</span><span class="p">(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">interfaceOrientation</span>
+<span class="p">{</span>
+    <span class="c1">// Return YES for supported orientations</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">interfaceOrientation</span> <span class="o">==</span> <span class="n">UIInterfaceOrientationPortrait</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">@end</span>
+</pre></div>
+</div>
+<p>This is a standard <tt class="docutils literal"><span class="pre">UIViewController</span></tt> subclass, which instantiates a single
+<tt class="docutils literal"><span class="pre">ClutchView</span></tt> instance and adds it to the view, sets itself up as a delegate
+to handle events that come in from the JavaScript layer, and passes along any
+<tt class="docutils literal"><span class="pre">viewDidAppear:</span></tt> and <tt class="docutils literal"><span class="pre">viewDidDisappear:</span></tt> messages into the Clutch view.</p>
+<p><strong>That&#8217;s it!</strong> You&#8217;ve got your screen hooked up and now it&#8217;s up to you to use
+it for good, not evil.</p>
+</div>
+
+
+                      </div>
+                        
+      <div class="sphinxsidebar secondary-sec">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless pad">
+      <a href="anatomy.html" title="previous chapter">Anatomy of an App Using Clutch</a>
+  </p>
+  <h4>Next topic</h4>
+  <p class="topless pad">
+      <a href="pulltorefresh.html" title="next chapter">Integrating Pull-to-Refresh</a>
+  </p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu pad">
+    <li>
+        <a href="_sources/addingnewscreen.txt" rel="nofollow">Show Source</a>
+    </li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <div class="pad">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" class="btn gray small" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip">
+    Enter search terms or a module, class or function name.
+    </p>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+                      <div class="clear"></div>
+                    </div>
+                    
+                  </div>
+                </div>
+      <div id="footer">
+             <div class="content">
+                 <div class="left">
+                 		<ul>
+                 		    <li><a href="http://127.0.0.1:8000/">Home</a></li>
+                 	        <li><a href="http://127.0.0.1:8000/about/">About</a></li>
+                 	        <li><a href="http://127.0.0.1:8000/faq/">FAQ</a></li>
+                 	        <li><a href="http://127.0.0.1:8000/privacy/">Privacy</a></li>
+                 	        <li><a href="http://127.0.0.1:8000/terms/">Terms</a></li>
+                          <li><a href="http://docs.clutch.io/">Documentation</a></li>
+                 	        <li class="#"><a href="http://blog.clutch.io">Blog</a></li>
+                 	    </ul>	
+                 		<br class="cl">
+
+                 		<a href="https://twitter.com/clutchio" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false">Follow @clutchio</a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                 	</div>
+
+                 	<div class="right">	
+                 		<p class="copyright">Copyright &copy; 2011-2012 Boilerplate Inc. San Francisco, CA.
+                 		    <br />
+                              Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.    
+                 		</p>
+                 	</div>
+             </div>
+        </div>
+    
+    
+    
+    
+    <!-- begin olark code --><script type='text/javascript'>/*{literal}<![CDATA[*/window.olark||(function(i){var e=window,h=document,a=e.location.protocol=="https:"?"https:":"http:",g=i.name,b="load";(function(){e[g]=function(){(c.s=c.s||[]).push(arguments)};var c=e[g]._={},f=i.methods.length; while(f--){(function(j){e[g][j]=function(){e[g]("call",j,arguments)}})(i.methods[f])} c.l=i.loader;c.i=arguments.callee;c.f=setTimeout(function(){if(c.f){(new Image).src=a+"//"+c.l.replace(".js",".png")+"&"+escape(e.location.href)}c.f=null},20000);c.p={0:+new Date};c.P=function(j){c.p[j]=new Date-c.p[0]};function d(){c.P(b);e[g](b)}e.addEventListener?e.addEventListener(b,d,false):e.attachEvent("on"+b,d); (function(){function l(j){j="head";return["<",j,"></",j,"><",z,' onl'+'oad="var d=',B,";d.getElementsByTagName('head')[0].",y,"(d.",A,"('script')).",u,"='",a,"//",c.l,"'",'"',"></",z,">"].join("")}var z="body",s=h[z];if(!s){return setTimeout(arguments.callee,100)}c.P(1);var y="appendChild",A="createElement",u="src",r=h[A]("div"),G=r[y](h[A](g)),D=h[A]("iframe"),B="document",C="domain",q;r.style.display="none";s.insertBefore(r,s.firstChild).id=g;D.frameBorder="0";D.id=g+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){D.src="javascript:false"} D.allowTransparency="true";G[y](D);try{D.contentWindow[B].open()}catch(F){i[C]=h[C];q="javascript:var d="+B+".open();d.domain='"+h.domain+"';";D[u]=q+"void(0);"}try{var H=D.contentWindow[B];H.write(l());H.close()}catch(E){D[u]=q+'d.write("'+l().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}c.P(2)})()})()})({loader:(function(a){return "static.olark.com/jsclient/loader0.js?ts="+(a?a[1]:(+new Date))})(document.cookie.match(/olarkld=([0-9]+)/)),name:"olark",methods:["configure","extend","declare","identify"]});
+    /* custom configuration goes here (www.olark.com/documentation) */
+    olark.configure('system.domain', '.clutch.io');
+    olark.identify('8940-141-10-1241');/*]]>{/literal}*/</script>
+        
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-29049023-2']);
+      _gaq.push(['_setDomainName', 'clutch.io']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

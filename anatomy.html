@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
+      <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+          
+          <title>Clutch.io - Anatomy of an App Using Clutch - Documentation</title>
+          
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/main.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-modal.js"></script>
+          <link rel="shortcut icon" href="_static/favicon.ico"/>
+                  <link rel="top" title="Clutch 1.0 documentation" href="index.html" />
+                  <link rel="up" title="Tutorials and Articles" href="tutorials.html" />
+                  <link rel="next" title="Adding a New Screen" href="addingnewscreen.html" />
+                  <link rel="prev" title="Getting Started" href="gettingstarted.html" /> 
+      </head>
+      <body id="docs" class="secondary ">
+          <div id="header">
+                <div class="content">
+                    <div class="ribbon"></div>
+                    <h1 class="logo"><a href="http://127.0.0.1:8000/">Clutch.io</a></h1>
+                        <ul class="main-nav">
+                			<li><a href="http://127.0.0.1:8000/features/"><strong>Features <em>What We Offer</em></strong></a></li>
+                			<li><a href="http://127.0.0.1:8000/pricing/"><strong>Pricing <em>Free &amp; Premium</em></strong></a></li>
+                			<li class="active"><a href="http://docs.clutch.io/"><strong>Documentation <em>Clear and Concise</em></strong></a></li>
+                            <li class="last"><a href="http://127.0.0.1:8000/apps/"><strong>My Account <em>Logout</em></strong></a></li>	
+                		</ul>
+                </div>
+           </div>
+           <div class="edge"></div>
+            
+              <div class="document">
+                  <div class="documentwrapper section-wrap">
+                      
+                    <div class="relbar">
+                    
+    <div class="breadcrumbs">
+    <a href="index.html" class="main-link">Clutch 1.0 documentation</a> &raquo;
+      <a href="framework.html" >Clutch Framework</a> &raquo;
+      <a href="tutorials.html" accesskey="U">Tutorials and Articles</a> &raquo;
+    Anatomy of an App Using Clutch
+    </div>
+    <div class="rellinks">
+    <a href="index.html" class="left">home</a>
+    <a href="genindex.html" class="right" title="General Index" accesskey="I">index</a>
+    <a href="addingnewscreen.html" class="right" title="Adding a New Screen" accesskey="N">next</a>
+    <a href="gettingstarted.html" class="right" title="Getting Started" accesskey="P">previous</a>
+    </div> 
+    <div class="clear"></div>
+                    </div>  
+                      
+                    <div class="bodywrapper content">  
+                      <div class="body main-sec">
+                        
+  <div class="section" id="anatomy-of-an-app-using-clutch">
+<h1>Anatomy of an App Using Clutch<a class="headerlink" href="#anatomy-of-an-app-using-clutch" title="Permalink to this headline">¶</a></h1>
+<p>If you used our QuickStart guide, we may have breezed past some of the details
+about all of the different parts that combine to form an app using Clutch.
+This article should serve to highlight each part of the system, how it works,
+and how it all fits together.</p>
+<div class="section" id="the-suggested-directory-structure">
+<h2>The Suggested Directory Structure<a class="headerlink" href="#the-suggested-directory-structure" title="Permalink to this headline">¶</a></h2>
+<p>The way the suggested directory structure looks is something like this:</p>
+<div class="highlight-python"><pre>MyApp/
+    MyApp/
+        MyApp.xcodeproj
+        Clutch.framework
+        MyApp/
+    clutchmyapp/
+        clutch-core/
+        global/
+        myscreen/
+            index.html
+            screen.js
+            style.css
+        clutch.plist</pre>
+</div>
+<p>If you have a directory structure that looks different, that&#8217;s fine, but this
+is the one that the QuickStart guide will start you with.  (The most common
+way that yours could differ is if your clutchmyapp directory is in a different
+spot, or is named something different.)</p>
+<p>First, there&#8217;s the outer <tt class="docutils literal"><span class="pre">MyApp</span></tt> directory.  This is honestly just a
+container to hold the inner two directories, so that they can both be checked
+into a single source code repository.  Feel free to rename this container
+directory to anything you want.</p>
+<p>Inside that container, there&#8217;s an inner <tt class="docutils literal"><span class="pre">MyApp</span></tt> directory which stores your
+iOS XCode project and the Clutch framework, as well as an inner inner <tt class="docutils literal"><span class="pre">MyApp</span></tt>
+directory which contains your actual native Objective-C code.  This is pretty
+straightforward.</p>
+<p>Then, there&#8217;s the <tt class="docutils literal"><span class="pre">clutchmyapp</span></tt> directory.  This is where all the
+JavaScript/HTML/CSS goes that will make up the screens in your app.  There are
+three things in there that are auto-generated.  <tt class="docutils literal"><span class="pre">clutch-core</span></tt> contains our
+libraries and static files, like backbone, zepto, and our base css.  <tt class="docutils literal"><span class="pre">global</span></tt>
+contains any JavaScript/HTML/CSS that you want to reuse across most (or all) of
+your screens.  Also there&#8217;s a <tt class="docutils literal"><span class="pre">clutch.plist</span></tt>, which holds any configuration
+information you&#8217;d like to access but be able to dynamically update.</p>
+<p>Finally there&#8217;s the <tt class="docutils literal"><span class="pre">myscreen</span></tt> directory, which is automatically created with
+an HTML file, a JavaScript file, and a CSS file.  You will create more and more
+of these as your application gets larger.  You can choose to fill those files
+with code, or you can just leave them blank.  For example in one screen, let&#8217;s
+say it&#8217;s an FAQ page, you might just have static content, so you&#8217;d just
+hand-code the HTML file.  Other screens might be more dynamic and so the HTML
+file would be left minimal, but the JavaScript file would fill up with your
+display logic.</p>
+</div>
+<div class="section" id="the-folder-reference">
+<h2>The Folder Reference<a class="headerlink" href="#the-folder-reference" title="Permalink to this headline">¶</a></h2>
+<p>This correlates to the <tt class="docutils literal"><span class="pre">clutchmyapp</span></tt> folder from the previous section.  It
+needs to be linked into your app as a folder reference for a few reasons.
+Firstly, it&#8217;s because we want to bundle a version of the HTML/CSS/JavaScript
+needed to run your app.  This means that the first time the user opens the app,
+they have a version of the HTML/CSS/JavaScript ready to go.  So there&#8217;s no need
+for internet connectivity to run an app that uses Clutch.</p>
+<p>The second reason that this folder needs to be linked into your app as a folder
+reference is due to the <tt class="docutils literal"><span class="pre">clutch.plist</span></tt> file contained within.  This file is
+used to store configuration.  You can use the  <a class="reference internal" href="ioslibrary.html#clutchconf"><em>ClutchConf</em></a>
+module to access the contents of this file, and then later you can update this
+configuration file remotely without having to push out a new application.  This
+might be used, for example, to determine the text to display on a native
+button.</p>
+</div>
+<div class="section" id="how-an-app-fits-together">
+<h2>How an App Fits Together<a class="headerlink" href="#how-an-app-fits-together" title="Permalink to this headline">¶</a></h2>
+<p>At first glance, Clutch might look similar to an framework like PhoneGap or
+Appcelerator Titanium, where you write your whole app in JavaScript and/or
+HTML.  Sometimes these solutions use an abstraction layer that aims to make it
+possible to target other platforms.  In fact, Clutch works in a way that&#8217;s
+quite a bit different.  Instead, you create your own
+<tt class="docutils literal"><span class="pre">UINavigationController</span></tt>, your own <tt class="docutils literal"><span class="pre">UITabBarController</span></tt>, and set up your
+own project the way you like it, and the way you&#8217;ve done it in the past.</p>
+<p>The only thing that changes from normal iOS development is that instead of
+using a XIB or interface builder to build your UI layer for some screen, you
+can have Clutch help you to use web technologies instead.</p>
+<p>That means, you carve out an area that you want to be able to update
+dynamically, and in that <tt class="docutils literal"><span class="pre">UIViewController</span></tt>&#8216;s <tt class="docutils literal"><span class="pre">loadView</span></tt> method, you simply
+instantiate a <tt class="docutils literal"><span class="pre">ClutchView</span></tt> and add it as a subview.</p>
+<p>Then you use our bridge layer to pass any important events from the Clutch view
+back into the Objective-C layer, and handle those events natively.</p>
+</div>
+<div class="section" id="the-bridge">
+<h2>The Bridge<a class="headerlink" href="#the-bridge" title="Permalink to this headline">¶</a></h2>
+<p>The bridge between your JavaScript code and you Objective-C code means that you
+can handle any event in the layer that makes the most sense.  For things that
+do fancy animations, or pop open modal windows, or slide to a new screen, you
+will want to do these things natively.  For things that involve simple text
+changes or content changes, you can handle that directly in JavaScript.</p>
+<p>It also works in the other direction.  You can capture events that happen in
+the native layer, like a <tt class="docutils literal"><span class="pre">UIToolbar</span></tt> button being pressed, and call into a
+function on the JavaScript side of things.</p>
+</div>
+<div class="section" id="development-mode">
+<h2>Development Mode<a class="headerlink" href="#development-mode" title="Permalink to this headline">¶</a></h2>
+<p>So there&#8217;s this whole step that you did where you entered in your phone&#8217;s
+identifier and associated it with your account, but what was that for?</p>
+<p>It allows Clutch to enable development mode.  Nobody writes perfect code on
+their first try.  We know that there&#8217;s a back-and-forth where you want to
+experiment, try out a change, see how a CSS tweak looks, and you don&#8217;t want to
+send that out to your users every time.  Instead, we provide a development mode
+which, when it sees your specific registered phone, it doesn&#8217;t serve the normal
+app using the normal methods.</p>
+<p>Instead it connects to your local computer, to your working set of files, and
+renders what you&#8217;ve written&#8211;rather than what you&#8217;ve deployed.  On top of that,
+it shows a nice toolbar that lets you know you&#8217;re in development mode, and
+gives you the option to quickly refresh the <tt class="docutils literal"><span class="pre">ClutchView</span></tt>, so you can avoid
+lengthy recompiles or re-navigating back to that same screen that you&#8217;re
+viewing.</p>
+</div>
+</div>
+
+
+                      </div>
+                        
+      <div class="sphinxsidebar secondary-sec">
+        <div class="sphinxsidebarwrapper">
+  <h3 class="contents">Contents</h3>
+  <div class="pad">
+  <ul>
+<li><a class="reference internal" href="#">Anatomy of an App Using Clutch</a><ul>
+<li><a class="reference internal" href="#the-suggested-directory-structure">The Suggested Directory Structure</a></li>
+<li><a class="reference internal" href="#the-folder-reference">The Folder Reference</a></li>
+<li><a class="reference internal" href="#how-an-app-fits-together">How an App Fits Together</a></li>
+<li><a class="reference internal" href="#the-bridge">The Bridge</a></li>
+<li><a class="reference internal" href="#development-mode">Development Mode</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless pad">
+      <a href="gettingstarted.html" title="previous chapter">Getting Started</a>
+  </p>
+  <h4>Next topic</h4>
+  <p class="topless pad">
+      <a href="addingnewscreen.html" title="next chapter">Adding a New Screen</a>
+  </p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu pad">
+    <li>
+        <a href="_sources/anatomy.txt" rel="nofollow">Show Source</a>
+    </li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <div class="pad">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" class="btn gray small" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip">
+    Enter search terms or a module, class or function name.
+    </p>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+                      <div class="clear"></div>
+                    </div>
+                    
+                  </div>
+                </div>
+      <div id="footer">
+             <div class="content">
+                 <div class="left">
+                 		<ul>
+                 		    <li><a href="http://127.0.0.1:8000/">Home</a></li>
+                 	        <li><a href="http://127.0.0.1:8000/about/">About</a></li>
+                 	        <li><a href="http://127.0.0.1:8000/faq/">FAQ</a></li>
+                 	        <li><a href="http://127.0.0.1:8000/privacy/">Privacy</a></li>
+                 	        <li><a href="http://127.0.0.1:8000/terms/">Terms</a></li>
+                          <li><a href="http://docs.clutch.io/">Documentation</a></li>
+                 	        <li class="#"><a href="http://blog.clutch.io">Blog</a></li>
+                 	    </ul>	
+                 		<br class="cl">
+
+                 		<a href="https://twitter.com/clutchio" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false">Follow @clutchio</a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                 	</div>
+
+                 	<div class="right">	
+                 		<p class="copyright">Copyright &copy; 2011-2012 Boilerplate Inc. San Francisco, CA.
+                 		    <br />
+                              Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.    
+                 		</p>
+                 	</div>
+             </div>
+        </div>
+    
+    
+    
+    
+    <!-- begin olark code --><script type='text/javascript'>/*{literal}<![CDATA[*/window.olark||(function(i){var e=window,h=document,a=e.location.protocol=="https:"?"https:":"http:",g=i.name,b="load";(function(){e[g]=function(){(c.s=c.s||[]).push(arguments)};var c=e[g]._={},f=i.methods.length; while(f--){(function(j){e[g][j]=function(){e[g]("call",j,arguments)}})(i.methods[f])} c.l=i.loader;c.i=arguments.callee;c.f=setTimeout(function(){if(c.f){(new Image).src=a+"//"+c.l.replace(".js",".png")+"&"+escape(e.location.href)}c.f=null},20000);c.p={0:+new Date};c.P=function(j){c.p[j]=new Date-c.p[0]};function d(){c.P(b);e[g](b)}e.addEventListener?e.addEventListener(b,d,false):e.attachEvent("on"+b,d); (function(){function l(j){j="head";return["<",j,"></",j,"><",z,' onl'+'oad="var d=',B,";d.getElementsByTagName('head')[0].",y,"(d.",A,"('script')).",u,"='",a,"//",c.l,"'",'"',"></",z,">"].join("")}var z="body",s=h[z];if(!s){return setTimeout(arguments.callee,100)}c.P(1);var y="appendChild",A="createElement",u="src",r=h[A]("div"),G=r[y](h[A](g)),D=h[A]("iframe"),B="document",C="domain",q;r.style.display="none";s.insertBefore(r,s.firstChild).id=g;D.frameBorder="0";D.id=g+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){D.src="javascript:false"} D.allowTransparency="true";G[y](D);try{D.contentWindow[B].open()}catch(F){i[C]=h[C];q="javascript:var d="+B+".open();d.domain='"+h.domain+"';";D[u]=q+"void(0);"}try{var H=D.contentWindow[B];H.write(l());H.close()}catch(E){D[u]=q+'d.write("'+l().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}c.P(2)})()})()})({loader:(function(a){return "static.olark.com/jsclient/loader0.js?ts="+(a?a[1]:(+new Date))})(document.cookie.match(/olarkld=([0-9]+)/)),name:"olark",methods:["configure","extend","declare","identify"]});
+    /* custom configuration goes here (www.olark.com/documentation) */
+    olark.configure('system.domain', '.clutch.io');
+    olark.identify('8940-141-10-1241');/*]]>{/literal}*/</script>
+        
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-29049023-2']);
+      _gaq.push(['_setDomainName', 'clutch.io']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

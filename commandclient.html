@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
+      <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+          
+          <title>Clutch.io - Clutch Command Client - Documentation</title>
+          
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/main.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-modal.js"></script>
+          <link rel="shortcut icon" href="_static/favicon.ico"/>
+                  <link rel="top" title="Clutch 1.0 documentation" href="index.html" />
+                  <link rel="up" title="Reference" href="reference.html" />
+                  <link rel="next" title="Terms and Definitions" href="termsanddefinitions.html" />
+                  <link rel="prev" title="iOS Library Reference" href="ioslibrary.html" /> 
+      </head>
+      <body id="docs" class="secondary ">
+          <div id="header">
+                <div class="content">
+                    <div class="ribbon"></div>
+                    <h1 class="logo"><a href="http://127.0.0.1:8000/">Clutch.io</a></h1>
+                        <ul class="main-nav">
+                			<li><a href="http://127.0.0.1:8000/features/"><strong>Features <em>What We Offer</em></strong></a></li>
+                			<li><a href="http://127.0.0.1:8000/pricing/"><strong>Pricing <em>Free &amp; Premium</em></strong></a></li>
+                			<li class="active"><a href="http://docs.clutch.io/"><strong>Documentation <em>Clear and Concise</em></strong></a></li>
+                            <li class="last"><a href="http://127.0.0.1:8000/apps/"><strong>My Account <em>Logout</em></strong></a></li>	
+                		</ul>
+                </div>
+           </div>
+           <div class="edge"></div>
+            
+              <div class="document">
+                  <div class="documentwrapper section-wrap">
+                      
+                    <div class="relbar">
+                    
+    <div class="breadcrumbs">
+    <a href="index.html" class="main-link">Clutch 1.0 documentation</a> &raquo;
+      <a href="framework.html" >Clutch Framework</a> &raquo;
+      <a href="reference.html" accesskey="U">Reference</a> &raquo;
+    Clutch Command Client
+    </div>
+    <div class="rellinks">
+    <a href="index.html" class="left">home</a>
+    <a href="genindex.html" class="right" title="General Index" accesskey="I">index</a>
+    <a href="termsanddefinitions.html" class="right" title="Terms and Definitions" accesskey="N">next</a>
+    <a href="ioslibrary.html" class="right" title="iOS Library Reference" accesskey="P">previous</a>
+    </div> 
+    <div class="clear"></div>
+                    </div>  
+                      
+                    <div class="bodywrapper content">  
+                      <div class="body main-sec">
+                        
+  <div class="section" id="clutch-command-client">
+<h1>Clutch Command Client<a class="headerlink" href="#clutch-command-client" title="Permalink to this headline">¶</a></h1>
+<p>The Clutch Command Client is the easiest way to communicate with Clutch.  You
+will use it whenever you do development, whenever you want to push a new
+version, and for various other tasks.  Here&#8217;s a list of the commands
+provided and what they are capable of:</p>
+<div class="section" id="installing">
+<h2>Installing<a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h2>
+<p>Installing the command client is as simple as running one command:</p>
+<div class="highlight-python"><pre>sudo easy_install clutchclient</pre>
+</div>
+<p>Once you&#8217;ve done that, typing <tt class="docutils literal"><span class="pre">clutch</span></tt> into the command line should show you
+the command&#8217;s usage instructions and you&#8217;ll know that it&#8217;s been successfully
+installed.</p>
+</div>
+<div class="section" id="commands">
+<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="startapp">
+<h3>startapp<a class="headerlink" href="#startapp" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">clutch</span> <span class="pre">startapp</span> <span class="pre">DIRNAME</span></tt></p>
+<p>Starts a new application directory under the name <tt class="docutils literal"><span class="pre">DIRNAME</span></tt>.  It will include
+all of the clutchjs JavaScript and CSS files, as well as an empty configuration
+plist.</p>
+</div>
+<div class="section" id="startscreen">
+<h3>startscreen<a class="headerlink" href="#startscreen" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">clutch</span> <span class="pre">startscreen</span> <span class="pre">SCREENSLUG</span></tt></p>
+<p>Starts a new screen directory under the name <tt class="docutils literal"><span class="pre">SCREENSLUG</span></tt>.  It will include a
+basic <tt class="docutils literal"><span class="pre">index.html</span></tt> base as well as a convenient place for your custom
+JavaScript and css files.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Your current working directory must be a Clutch application directory, or
+else the Clutch Command Client will not be able to create a new screen
+directory.</p>
+</div>
+</div>
+<div class="section" id="dev">
+<h3>dev<a class="headerlink" href="#dev" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">clutch</span> <span class="pre">dev</span> <span class="pre">-a</span> <span class="pre">APPNAME</span> <span class="pre">[-d</span> <span class="pre">DIRNAME]</span></tt></p>
+<p>Starts local development on a Clutch application.  If you use one of the iOS
+devices <a class="reference external" href="http://clutch.io/devices/">managed by your account</a> then all of the screens in your application
+will be loaded on-demand from your computer rather than from the latest
+published version.</p>
+<p>By default, it will serve the current working directory, but you can specify
+another directory to serve using the <tt class="docutils literal"><span class="pre">-d</span></tt> command flag.</p>
+</div>
+<div class="section" id="upload">
+<h3>upload<a class="headerlink" href="#upload" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">clutch</span> <span class="pre">upload</span> <span class="pre">-a</span> <span class="pre">APPNAME</span> <span class="pre">[-d</span> <span class="pre">DIRNAME]</span></tt></p>
+<p>Uploads a new version of your Clutch application to production.  All of your
+users will begin running the new code the next time they bring the application
+into the foreground.</p>
+<p>By default, it will upload the current working directory, but you can specify
+another directory to serve using the <tt class="docutils literal"><span class="pre">-d</span></tt> command flag.</p>
+</div>
+</div>
+</div>
+
+
+                      </div>
+                        
+      <div class="sphinxsidebar secondary-sec">
+        <div class="sphinxsidebarwrapper">
+  <h3 class="contents">Contents</h3>
+  <div class="pad">
+  <ul>
+<li><a class="reference internal" href="#">Clutch Command Client</a><ul>
+<li><a class="reference internal" href="#installing">Installing</a></li>
+<li><a class="reference internal" href="#commands">Commands</a><ul>
+<li><a class="reference internal" href="#startapp">startapp</a></li>
+<li><a class="reference internal" href="#startscreen">startscreen</a></li>
+<li><a class="reference internal" href="#dev">dev</a></li>
+<li><a class="reference internal" href="#upload">upload</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless pad">
+      <a href="ioslibrary.html" title="previous chapter">iOS Library Reference</a>
+  </p>
+  <h4>Next topic</h4>
+  <p class="topless pad">
+      <a href="termsanddefinitions.html" title="next chapter">Terms and Definitions</a>
+  </p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu pad">
+    <li>
+        <a href="_sources/commandclient.txt" rel="nofollow">Show Source</a>
+    </li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <div class="pad">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" class="btn gray small" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip">
+    Enter search terms or a module, class or function name.
+    </p>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+                      <div class="clear"></div>
+                    </div>
+                    
+                  </div>
+                </div>
+      <div id="footer">
+             <div class="content">
+                 <div class="left">
+                 		<ul>
+                 		    <li><a href="http://127.0.0.1:8000/">Home</a></li>
+                 	        <li><a href="http://127.0.0.1:8000/about/">About</a></li>
+                 	        <li><a href="http://127.0.0.1:8000/faq/">FAQ</a></li>
+                 	        <li><a href="http://127.0.0.1:8000/privacy/">Privacy</a></li>
+                 	        <li><a href="http://127.0.0.1:8000/terms/">Terms</a></li>
+                          <li><a href="http://docs.clutch.io/">Documentation</a></li>
+                 	        <li class="#"><a href="http://blog.clutch.io">Blog</a></li>
+                 	    </ul>	
+                 		<br class="cl">
+
+                 		<a href="https://twitter.com/clutchio" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false">Follow @clutchio</a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                 	</div>
+
+                 	<div class="right">	
+                 		<p class="copyright">Copyright &copy; 2011-2012 Boilerplate Inc. San Francisco, CA.
+                 		    <br />
+                              Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.    
+                 		</p>
+                 	</div>
+             </div>
+        </div>
+    
+    
+    
+    
+    <!-- begin olark code --><script type='text/javascript'>/*{literal}<![CDATA[*/window.olark||(function(i){var e=window,h=document,a=e.location.protocol=="https:"?"https:":"http:",g=i.name,b="load";(function(){e[g]=function(){(c.s=c.s||[]).push(arguments)};var c=e[g]._={},f=i.methods.length; while(f--){(function(j){e[g][j]=function(){e[g]("call",j,arguments)}})(i.methods[f])} c.l=i.loader;c.i=arguments.callee;c.f=setTimeout(function(){if(c.f){(new Image).src=a+"//"+c.l.replace(".js",".png")+"&"+escape(e.location.href)}c.f=null},20000);c.p={0:+new Date};c.P=function(j){c.p[j]=new Date-c.p[0]};function d(){c.P(b);e[g](b)}e.addEventListener?e.addEventListener(b,d,false):e.attachEvent("on"+b,d); (function(){function l(j){j="head";return["<",j,"></",j,"><",z,' onl'+'oad="var d=',B,";d.getElementsByTagName('head')[0].",y,"(d.",A,"('script')).",u,"='",a,"//",c.l,"'",'"',"></",z,">"].join("")}var z="body",s=h[z];if(!s){return setTimeout(arguments.callee,100)}c.P(1);var y="appendChild",A="createElement",u="src",r=h[A]("div"),G=r[y](h[A](g)),D=h[A]("iframe"),B="document",C="domain",q;r.style.display="none";s.insertBefore(r,s.firstChild).id=g;D.frameBorder="0";D.id=g+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){D.src="javascript:false"} D.allowTransparency="true";G[y](D);try{D.contentWindow[B].open()}catch(F){i[C]=h[C];q="javascript:var d="+B+".open();d.domain='"+h.domain+"';";D[u]=q+"void(0);"}try{var H=D.contentWindow[B];H.write(l());H.close()}catch(E){D[u]=q+'d.write("'+l().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}c.P(2)})()})()})({loader:(function(a){return "static.olark.com/jsclient/loader0.js?ts="+(a?a[1]:(+new Date))})(document.cookie.match(/olarkld=([0-9]+)/)),name:"olark",methods:["configure","extend","declare","identify"]});
+    /* custom configuration goes here (www.olark.com/documentation) */
+    olark.configure('system.domain', '.clutch.io');
+    olark.identify('8940-141-10-1241');/*]]>{/literal}*/</script>
+        
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-29049023-2']);
+      _gaq.push(['_setDomainName', 'clutch.io']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>

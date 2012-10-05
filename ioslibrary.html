@@ -1,0 +1,309 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
+      <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+          
+          <title>Clutch.io - iOS Library Reference - Documentation</title>
+          
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/main.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-modal.js"></script>
+          <link rel="shortcut icon" href="_static/favicon.ico"/>
+                  <link rel="top" title="Clutch 1.0 documentation" href="index.html" />
+                  <link rel="up" title="Reference" href="reference.html" />
+                  <link rel="next" title="Clutch Command Client" href="commandclient.html" />
+                  <link rel="prev" title="JavaScript Library Reference" href="jslibrary.html" /> 
+      </head>
+      <body id="docs" class="secondary ">
+          <div id="header">
+                <div class="content">
+                    <div class="ribbon"></div>
+                    <h1 class="logo"><a href="http://127.0.0.1:8000/">Clutch.io</a></h1>
+                        <ul class="main-nav">
+                			<li><a href="http://127.0.0.1:8000/features/"><strong>Features <em>What We Offer</em></strong></a></li>
+                			<li><a href="http://127.0.0.1:8000/pricing/"><strong>Pricing <em>Free &amp; Premium</em></strong></a></li>
+                			<li class="active"><a href="http://docs.clutch.io/"><strong>Documentation <em>Clear and Concise</em></strong></a></li>
+                            <li class="last"><a href="http://127.0.0.1:8000/apps/"><strong>My Account <em>Logout</em></strong></a></li>	
+                		</ul>
+                </div>
+           </div>
+           <div class="edge"></div>
+            
+              <div class="document">
+                  <div class="documentwrapper section-wrap">
+                      
+                    <div class="relbar">
+                    
+    <div class="breadcrumbs">
+    <a href="index.html" class="main-link">Clutch 1.0 documentation</a> &raquo;
+      <a href="framework.html" >Clutch Framework</a> &raquo;
+      <a href="reference.html" accesskey="U">Reference</a> &raquo;
+    iOS Library Reference
+    </div>
+    <div class="rellinks">
+    <a href="index.html" class="left">home</a>
+    <a href="genindex.html" class="right" title="General Index" accesskey="I">index</a>
+    <a href="commandclient.html" class="right" title="Clutch Command Client" accesskey="N">next</a>
+    <a href="jslibrary.html" class="right" title="JavaScript Library Reference" accesskey="P">previous</a>
+    </div> 
+    <div class="clear"></div>
+                    </div>  
+                      
+                    <div class="bodywrapper content">  
+                      <div class="body main-sec">
+                        
+  <div class="section" id="ios-library-reference">
+<h1>iOS Library Reference<a class="headerlink" href="#ios-library-reference" title="Permalink to this headline">¶</a></h1>
+<p>The Clutch iOS library syncs up your latest code, helps you analyze usage about
+your app, and provides a bi-directional bridge between your JavaScript code and
+your Objective-C code.</p>
+<div class="section" id="clutchsync">
+<h2>ClutchSync<a class="headerlink" href="#clutchsync" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">sync</span>
+</pre></div>
+</div>
+<p>Intended to be called when the app finishes launching.  Syncs to the latest
+version of the application code.</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">foreground</span>
+</pre></div>
+</div>
+<p>Intended to be called when the app is brought into the foreground.  Syncs
+to the latest version of the application code.</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">background</span>
+</pre></div>
+</div>
+<p>Intended to be called when the app is sent to the background.  Performs
+cleanup and sends statistics information.</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">+</span> <span class="p">(</span><span class="n">ClutchSync</span> <span class="o">*</span><span class="p">)</span><span class="nf">sharedClientForKey:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">appKey</span>
+                     <span class="nf">tunnelURL:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">tunnelURL</span>
+                        <span class="nf">rpcURL:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">rpcURL</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Returns a <tt class="docutils literal"><span class="pre">ClutchSync</span></tt> client instance for the given application key, tunnel
+URL, and RPC URL.</p>
+</div>
+<div class="section" id="clutchview">
+<h2>ClutchView<a class="headerlink" href="#clutchview" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">initWithFrame:</span><span class="p">(</span><span class="n">CGRect</span><span class="p">)</span><span class="nv">frame</span> <span class="nf">andSlug:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">slug</span>
+</pre></div>
+</div>
+<p>Initializes a Clutch view instance with the given frame and screen slug.</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">callMethod:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">method</span> <span class="nf">withParams:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">params</span>
+</pre></div>
+</div>
+<p>Calls a JavaScript method (that has been registered with Clutch) and returns
+its response.  The <tt class="docutils literal"><span class="pre">params</span></tt> dictionary is the parameters you woud like to
+pass as an argument to the JavaScript function.</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">callMethod:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">method</span>
+</pre></div>
+</div>
+<p>The same as the previous call except no <tt class="docutils literal"><span class="pre">params</span></tt>.</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidAppear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
+</pre></div>
+</div>
+<p>Should be called when its containing view controller&#8217;s viewDidAppear is called.</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidDisappear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
+</pre></div>
+</div>
+<p>Should be called when its containing view controller&#8217;s viewDidDisappear is
+called.</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">logDeviceIdentifier</span>
+</pre></div>
+</div>
+<p>Logs the current device&#8217;s identifier, for use on the <a class="reference external" href="http://127.0.0.1:8000/devices/create/">add device page</a>.</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">prepareForAnimation:</span><span class="p">(</span><span class="n">UIViewController</span> <span class="o">*</span><span class="p">)</span><span class="nv">viewController</span> <span class="nf">success:</span><span class="p">(</span><span class="kt">void</span><span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="kt">void</span><span class="p">))</span><span class="nv">block_</span>
+
+<span class="k">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">prepareForDisplay:</span><span class="p">(</span><span class="n">UIViewController</span> <span class="o">*</span><span class="p">)</span><span class="nv">viewController</span> <span class="nf">success:</span><span class="p">(</span><span class="kt">void</span><span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="kt">void</span><span class="p">))</span><span class="nv">block_</span>
+</pre></div>
+</div>
+<p>Prepares the given view controller subclass for animation or display (such as
+adding it to a navigation controller) and then calls the given <tt class="docutils literal"><span class="pre">success</span></tt>
+block.</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">prepareForDisplay:</span><span class="p">(</span><span class="n">UIViewController</span> <span class="o">*</span><span class="p">)</span><span class="nv">viewController</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Prepares the given view controller subclass for display, and does not call any
+callback.</p>
+<div class="section" id="properties">
+<h3>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="kt">id</span> <span class="n">delegate</span>
+</pre></div>
+</div>
+<p>You may set this property to point to any instance of <a class="reference internal" href="#clutchviewdelegate">ClutchViewDelegate</a> and
+it will allow you to communicate between JavaScript and Objective-C.</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="kt">id</span> <span class="n">scrollDelegate</span>
+</pre></div>
+</div>
+<p>You may set this property to any instance of <tt class="docutils literal"><span class="pre">UIScrollViewDelegate</span></tt>, which
+will send updates for all of the scrolling that happens on the web view.</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="n">UIWebView</span> <span class="o">*</span><span class="n">webView</span>
+</pre></div>
+</div>
+<p>The underlying webview that is the main workhorse of each ClutchView.</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="n">UIScrollView</span> <span class="o">*</span><span class="n">scrollView</span>
+</pre></div>
+</div>
+<p>The webview&#8217;s scrollview.  Useful for being updated as the user scrolls the
+webview&#8217;s contents, as in a pull-to-refresh implementation.</p>
+</div>
+</div>
+<div class="section" id="clutchviewdelegate">
+<h2>ClutchViewDelegate<a class="headerlink" href="#clutchviewdelegate" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">clutchView:</span><span class="p">(</span><span class="n">ClutchView</span> <span class="o">*</span><span class="p">)</span><span class="nv">clutchView</span>
+      <span class="nf">methodCalled:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">method</span>
+        <span class="nf">withParams:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">params</span>
+</pre></div>
+</div>
+<p>Called when JavaScript calls the <tt class="docutils literal"><span class="pre">Clutch.Core.callMethod(method,</span> <span class="pre">params)</span></tt>
+method, which is useful for communication between your JavaScript code and
+your Objective-C code.</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">clutchView:</span><span class="p">(</span><span class="n">ClutchView</span> <span class="o">*</span><span class="p">)</span><span class="nv">clutchView</span>
+      <span class="nf">methodCalled:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">method</span>
+        <span class="nf">withParams:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">params</span>
+          <span class="nf">callback:</span><span class="p">(</span><span class="kt">void</span><span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="kt">id</span><span class="p">))</span><span class="nv">callback</span>
+</pre></div>
+</div>
+<p>Similar to the above method, except that this time it provides a callback that
+you can call.  Whatever object you pass to this callback will be sent to your
+JavaScript callback.</p>
+</div>
+<div class="section" id="clutchconf">
+<span id="id1"></span><h2>ClutchConf<a class="headerlink" href="#clutchconf" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">+</span> <span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nf">conf</span>
+</pre></div>
+</div>
+<p>Gets the latest configuration (provided by clutch.plist).</p>
+<div class="highlight-obj-c"><div class="highlight"><pre><span class="k">+</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nf">version</span>
+</pre></div>
+</div>
+<p>Gets the latest version of the configuration.</p>
+</div>
+</div>
+
+
+                      </div>
+                        
+      <div class="sphinxsidebar secondary-sec">
+        <div class="sphinxsidebarwrapper">
+  <h3 class="contents">Contents</h3>
+  <div class="pad">
+  <ul>
+<li><a class="reference internal" href="#">iOS Library Reference</a><ul>
+<li><a class="reference internal" href="#clutchsync">ClutchSync</a></li>
+<li><a class="reference internal" href="#clutchview">ClutchView</a><ul>
+<li><a class="reference internal" href="#properties">Properties</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#clutchviewdelegate">ClutchViewDelegate</a></li>
+<li><a class="reference internal" href="#clutchconf">ClutchConf</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <h4>Previous topic</h4>
+  <p class="topless pad">
+      <a href="jslibrary.html" title="previous chapter">JavaScript Library Reference</a>
+  </p>
+  <h4>Next topic</h4>
+  <p class="topless pad">
+      <a href="commandclient.html" title="next chapter">Clutch Command Client</a>
+  </p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu pad">
+    <li>
+        <a href="_sources/ioslibrary.txt" rel="nofollow">Show Source</a>
+    </li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <div class="pad">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" class="btn gray small" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip">
+    Enter search terms or a module, class or function name.
+    </p>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+                      <div class="clear"></div>
+                    </div>
+                    
+                  </div>
+                </div>
+      <div id="footer">
+             <div class="content">
+                 <div class="left">
+                 		<ul>
+                 		    <li><a href="http://127.0.0.1:8000/">Home</a></li>
+                 	        <li><a href="http://127.0.0.1:8000/about/">About</a></li>
+                 	        <li><a href="http://127.0.0.1:8000/faq/">FAQ</a></li>
+                 	        <li><a href="http://127.0.0.1:8000/privacy/">Privacy</a></li>
+                 	        <li><a href="http://127.0.0.1:8000/terms/">Terms</a></li>
+                          <li><a href="http://docs.clutch.io/">Documentation</a></li>
+                 	        <li class="#"><a href="http://blog.clutch.io">Blog</a></li>
+                 	    </ul>	
+                 		<br class="cl">
+
+                 		<a href="https://twitter.com/clutchio" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false">Follow @clutchio</a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                 	</div>
+
+                 	<div class="right">	
+                 		<p class="copyright">Copyright &copy; 2011-2012 Boilerplate Inc. San Francisco, CA.
+                 		    <br />
+                              Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.    
+                 		</p>
+                 	</div>
+             </div>
+        </div>
+    
+    
+    
+    
+    <!-- begin olark code --><script type='text/javascript'>/*{literal}<![CDATA[*/window.olark||(function(i){var e=window,h=document,a=e.location.protocol=="https:"?"https:":"http:",g=i.name,b="load";(function(){e[g]=function(){(c.s=c.s||[]).push(arguments)};var c=e[g]._={},f=i.methods.length; while(f--){(function(j){e[g][j]=function(){e[g]("call",j,arguments)}})(i.methods[f])} c.l=i.loader;c.i=arguments.callee;c.f=setTimeout(function(){if(c.f){(new Image).src=a+"//"+c.l.replace(".js",".png")+"&"+escape(e.location.href)}c.f=null},20000);c.p={0:+new Date};c.P=function(j){c.p[j]=new Date-c.p[0]};function d(){c.P(b);e[g](b)}e.addEventListener?e.addEventListener(b,d,false):e.attachEvent("on"+b,d); (function(){function l(j){j="head";return["<",j,"></",j,"><",z,' onl'+'oad="var d=',B,";d.getElementsByTagName('head')[0].",y,"(d.",A,"('script')).",u,"='",a,"//",c.l,"'",'"',"></",z,">"].join("")}var z="body",s=h[z];if(!s){return setTimeout(arguments.callee,100)}c.P(1);var y="appendChild",A="createElement",u="src",r=h[A]("div"),G=r[y](h[A](g)),D=h[A]("iframe"),B="document",C="domain",q;r.style.display="none";s.insertBefore(r,s.firstChild).id=g;D.frameBorder="0";D.id=g+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){D.src="javascript:false"} D.allowTransparency="true";G[y](D);try{D.contentWindow[B].open()}catch(F){i[C]=h[C];q="javascript:var d="+B+".open();d.domain='"+h.domain+"';";D[u]=q+"void(0);"}try{var H=D.contentWindow[B];H.write(l());H.close()}catch(E){D[u]=q+'d.write("'+l().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}c.P(2)})()})()})({loader:(function(a){return "static.olark.com/jsclient/loader0.js?ts="+(a?a[1]:(+new Date))})(document.cookie.match(/olarkld=([0-9]+)/)),name:"olark",methods:["configure","extend","declare","identify"]});
+    /* custom configuration goes here (www.olark.com/documentation) */
+    olark.configure('system.domain', '.clutch.io');
+    olark.identify('8940-141-10-1241');/*]]>{/literal}*/</script>
+        
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-29049023-2']);
+      _gaq.push(['_setDomainName', 'clutch.io']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</body>
+</html>
